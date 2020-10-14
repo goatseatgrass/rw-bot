@@ -154,7 +154,7 @@ public class Organization{
 		List<Role> roles = author.getRoles(Main.RabidWriters);
 		for (int i=0; i<roles.size(); i++) {
 			//System.out.println(roles.get(i).getName());
-			if (roles.get(i).getName().equalsIgnoreCase("Mother")||roles.get(i).getName().equalsIgnoreCase("Modhound")) {
+			if (roles.get(i).getName().equalsIgnoreCase("Guardian")||roles.get(i).getName().equalsIgnoreCase("Modhound")) {
 				hasModPerms = true;
 			}
 		}
