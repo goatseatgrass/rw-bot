@@ -3,13 +3,16 @@ package com.github.goatseatgrass.MyFirstBot;
 import com.vdurmont.emoji.EmojiParser;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageBuilder;
+import org.javacord.api.entity.message.MessageSet;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 
 import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 import java.util.prefs.Preferences;
 
@@ -49,6 +52,7 @@ currentChannel.sendMessage(eb);
 
 public static void set(String[] message, TextChannel currentChannel, long ID, User author) throws InterruptedException, ExecutionException {
 	//wc.set book1 name or wc.set book2 name
+	memberAdd(message, currentChannel, ID, author);
 	String book = message[1];
 	if (prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
 	{currentChannel.sendMessage("You're on a break bitch ass bastard. Use wc.back to join the rat race");}
@@ -61,12 +65,28 @@ public static void set(String[] message, TextChannel currentChannel, long ID, Us
 	}
 }
 
+public static void memberAdd(String[] message, TextChannel currentChannel, long ID, User author){
+	boolean exists = false;
+	if (!prefs.get("members", "").equalsIgnoreCase(""))
+	{String[] members = prefs.get("members", "").split(" ");
+	for (int i=0; i< members.length; i++){
+		if (Long.parseLong(members[i])== author.getId()){
+			exists = true;
+		}
+	}}
+
+	if (!exists) {
+		String temp = prefs.get("members", "") + " " + author.getIdAsString();
+		prefs.put("members", temp);
+	}
+}
+
 public static void view(String[] message, TextChannel currentChannel, long ID, User author) throws InterruptedException, ExecutionException {
 	//wc.view book1 or wc.view book2 
 	String book = message[1];
 	if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		if (prefs.get(author.getIdAsString() + book + " name", "no book").equalsIgnoreCase("no book"))
-			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set book1 <name of your book without these thingies at the end>\" to first set a book you dumb whore");}
+			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set " + book + " <name of your book without these thingies at the end>\" to first set a book you dumb whore");}
 		else
 			{currentChannel.sendMessage(prefs.get(author.getIdAsString() + book + " name", "no book"));}
 	}
@@ -142,7 +162,7 @@ public static void check(String[] message, TextChannel currentChannel, long ID, 
 				if (i==temp.length-1)
 					{words+=temp[i];}
 				else
-					{words+= temp[i] + " ,";}
+					{words+= temp[i] + ", ";}
 			}
 			currentChannel.sendMessage(words);
 		}
@@ -419,6 +439,47 @@ public static void resetBreakStats(String[] message, TextChannel currentChannel,
 	//wc.resetBreak
 	prefs.remove(author.getIdAsString() + "breakstats");
 	}
+
+public static void scan(String[] message, TextChannel currentChannel, long ID, User author) throws ExecutionException, InterruptedException {
+if (Organization.checkPerms(author))
+	{String mID = message[1];
+	System.out.println("I'm working, ID is'" + mID);
+	MessageSet messages = currentChannel.getMessagesBetween(Long.parseLong(mID), ID).get();
+	messages.forEach(msg -> {
+		try {
+			Main.assign(msg.getContent(), msg.getChannel(), msg.getId(), msg.getAuthor().asUser().get());
+		} catch (InterruptedException |  ExecutionException | IOException e) {
+			e.printStackTrace();
+		}});
+	}
+else
+	{author.sendMessage("Only Mods can use this method, weakass");}
+	}
+
+public static void memberList(String[] message, TextChannel currentChannel, long ID, User author) throws ExecutionException, InterruptedException {
+	String[]members = prefs.get("members", "").split(" ");
+	System.out.println(prefs.get("members", ""));
+	LinkedList allstats = new LinkedList();
+	for(int i=0; i< members.length; i++){
+		if (!members[i].isEmpty())
+		{long mID = Long.parseLong(members[i]);
+		String[]temp1 = prefs.get(author.getIdAsString() + "book1 wc", "0").split(" ");
+		String[]temp2 = prefs.get(author.getIdAsString() + "book2 wc", "0").split(" ");
+		int numberOfUpdates = temp1.length + temp2.length;
+		int bookwords1 = total(new String[] {"bla", "book1"}, currentChannel, ID, Main.api.getUserById(mID).get(), "total");
+		int bookwords2 = total(new String[] {"bla", "book2"}, currentChannel, ID, Main.api.getUserById(mID).get(), "total");
+		int totalWords = bookwords1 + bookwords2;
+		String stats = "Member - " + Main.api.getUserById(mID).get().getDiscriminatedName() + "\n" + "Number of times updated - " + numberOfUpdates + "\n" + "Words written - " + totalWords;
+		allstats.add(stats);}
+	}
+	MessageBuilder mb = new MessageBuilder();
+	for (int i=0; i< allstats.size(); i++){
+		mb.append(allstats.get(i));
+		mb.appendNewLine();
+		mb.append("---------------");
+	}
+	mb.send(currentChannel);
+}
 
 public static String getMonth(int n) {
 	String month = "";
