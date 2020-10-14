@@ -18,9 +18,9 @@ public class Main {
 
 
 	public static void main(String[] args) throws IOException {
-		api = new DiscordApiBuilder().setToken("NzIyNDQ2MTY2Njk2MTMyNjE4.XujNOg.xpsozD5-obej3Ae2ALzdrI6IKzY").login().join();
+		api = new DiscordApiBuilder().setToken("NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.iiw6wc5gfFSUfqYdEZUCz2GyjvA").login().join();
 		System.out.println("Logged in!");
-		String token = "NzIyNDQ2MTY2Njk2MTMyNjE4.XujNOg.xpsozD5-obej3Ae2ALzdrI6IKzY";
+		String token = "NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.iiw6wc5gfFSUfqYdEZUCz2GyjvA";
 		RabidWriters = api.getServerById("695616904206876774").get();
 		//MyServer = api.getServerById("722438697785622629").get();
 
@@ -51,7 +51,7 @@ public class Main {
 
 		// Add a listener which answers with Discord name if someone writes "!ping"
 		api.addMessageCreateListener(event -> {
-			if (event.getMessageContent().contains("jjskgey4u")) {
+			if (event.getMessageContent().contains("You up?")) {
 				//User user = api.getYourself();
 				//User user = event.getMessageAuthor().asUser().get();
 				//event.getChannel().sendMessage(api.createBotInvite());
@@ -59,9 +59,9 @@ public class Main {
 				//{event.getChannel().sendMessage(user.getRoles(MyServer).get(i).getName());}
 				System.out.println("Working");
 				//event.getChannel().sendMessage(user.getIdAsString());
-				event.getChannel().sendMessage(event.getMessageContent());
+				event.getChannel().sendMessage("yeah");
 				System.out.println(event.getMessageContent());
-				event.getChannel().sendMessage(event.getReadableMessageContent());
+				//event.getChannel().sendMessage(event.getReadableMessageContent());
 				System.out.println(event.getReadableMessageContent());
 				//event.getChannel().sendMessage("Discriminated Name - " + user.getDiscriminatedName());
 				//event.getChannel().sendMessage("Discriminator Name - " + user.getDiscriminator());
@@ -143,10 +143,14 @@ public class Main {
 			if (breakdown[0].equalsIgnoreCase("wc.checkstats")) {
 				DailyWordCount.checkStats(breakdown, channel, ID, author);
 			}
-
 			if (breakdown[0].equalsIgnoreCase("wc.checkmonthlystats")) {
-				System.out.println("Monthly");
 				DailyWordCount.checkMonthlyStats(breakdown, channel, ID, author);
+			}
+			if (breakdown[0].equalsIgnoreCase("wc.scan")) {
+				DailyWordCount.scan(breakdown, channel, ID, author);
+			}
+			if (breakdown[0].equalsIgnoreCase("wc.checkmembers")) {
+				DailyWordCount.memberList(breakdown, channel, ID, author);
 			}
 			}
 		}
