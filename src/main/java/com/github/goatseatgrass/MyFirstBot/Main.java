@@ -135,7 +135,7 @@ public class Main {
 			if (breakdown[0].equalsIgnoreCase("wc.checkmembers")) {
 				DailyWordCount.memberList(breakdown, channel, ID, author);
 			}
-			}
+			
 		}
 	}
 
