@@ -16,10 +16,10 @@ public class Main {
 	public static Server RabidWriters;
 	
 	public static void main(String[] args) throws IOException {
-		api = new DiscordApiBuilder().setToken("NzIyNDQ2MTY2NNjE4.XujMbA").login().join();
+		api = new DiscordApiBuilder().setToken("NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.074tYdlXM9hv37ERMnVOF-FWWAw").login().join();
 		System.out.println("Logged in!");
-		String token = "NzIyNDQ2MTY2NNjE4.XujMbA";
-		RabidWriters = api.getServerById("6956169042068767").get();
+		String token = "NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.074tYdlXM9hv37ERMnVOF-FWWAw";
+		RabidWriters = api.getServerById("695616904206876774").get();
 		//MyServer = api.getServerById("722438697785622629").get();
 
 		api.addMessageCreateListener(event -> {
