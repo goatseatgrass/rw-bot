@@ -28,7 +28,7 @@ public class Main {
 			} catch (InterruptedException | ExecutionException | IOException e) {
 			}
 		});
-		Organization.status(new String[]{"idk", "invisible"});
+		
 		EmbedBuilder embed = new EmbedBuilder();
 		embed.addField("name", "value");
 		embed.setAuthor("Author");
