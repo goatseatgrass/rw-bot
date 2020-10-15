@@ -178,7 +178,7 @@ public static int total(String[] message, TextChannel currentChannel, long ID, U
 			String[] words = allWords.split(" ");
 			for (int i = 0; i < words.length; i++) {
 				//System.out.println(words[i]);
-				if (!words[i].isBlank()) {
+				if (!words[i].chars().allMatch(Character::isWhitespace)) {
 					sum += Long.parseLong(words[i].strip());
 				}
 			}
@@ -211,7 +211,7 @@ public static int total(String[] message, TextChannel currentChannel, long ID, U
 
 			for (int i = start; i < start + counter + 1; i++) {
 				//System.out.println(words[i]);
-				if (!words[i].isBlank()) {
+				if (!words[i].chars().allMatch(Character::isWhitespace)) {
 					sum += Long.parseLong(words[i].strip());
 				}
 			}
