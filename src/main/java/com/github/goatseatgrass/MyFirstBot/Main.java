@@ -14,8 +14,7 @@ import java.util.concurrent.ExecutionException;
 public class Main {
 	public static DiscordApi api;
 	public static Server RabidWriters;
-	public static Server MyS
-
+	
 	public static void main(String[] args) throws IOException {
 		api = new DiscordApiBuilder().setToken("NzIyNDQ2MTY2NNjE4.XujMbA").login().join();
 		System.out.println("Logged in!");
