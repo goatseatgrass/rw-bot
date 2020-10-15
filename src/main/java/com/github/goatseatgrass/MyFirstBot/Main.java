@@ -87,9 +87,7 @@ public class Main {
 			if (breakdown[0].equalsIgnoreCase("wolf.removereactions")) {
 				Organization.removeReactions(breakdown, channel, ID, author);
 			}
-			if (author.getDiscriminatedName().equalsIgnoreCase("DISBOARD#2760")) {
-				Bumpwars.bumpCount(message, channel, ID, author);
-			}
+			
 			if (breakdown[0].equalsIgnoreCase("wc.add")) {
 				DailyWordCount.add(breakdown, channel, ID, author);
 			}
