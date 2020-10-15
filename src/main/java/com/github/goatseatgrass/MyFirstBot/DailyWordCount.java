@@ -86,7 +86,7 @@ public static void view(String[] message, TextChannel currentChannel, long ID, U
 	String book = message[1];
 	if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		if (prefs.get(author.getIdAsString() + book + " name", "no book").equalsIgnoreCase("no book"))
-			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set " + book + " <name of your book without these thingies at the end>\" to first set a book");
+			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set " + book + " <name of your book without these thingies at the end>\" to first set a book");}
 		else
 			{currentChannel.sendMessage(prefs.get(author.getIdAsString() + book + " name", "no book"));}
 	}
