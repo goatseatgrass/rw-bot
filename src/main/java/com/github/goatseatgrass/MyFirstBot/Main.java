@@ -146,6 +146,8 @@ public class Main {
 		}
 		return message.trim();
 	}
+	
+}
 
 
 
