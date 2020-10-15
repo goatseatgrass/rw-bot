@@ -55,7 +55,7 @@ public static void set(String[] message, TextChannel currentChannel, long ID, Us
 	memberAdd(message, currentChannel, ID, author);
 	String book = message[1];
 	if (prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
-	{currentChannel.sendMessage("You're on a break bitch ass bastard. Use wc.back to join the rat race");}
+	{currentChannel.sendMessage("You're on a break. Use wc.back to join the rat race");}
 	
 	else if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		prefs.put(author.getIdAsString() + book + " name", Main.getMessagefromArray(message, 2));
@@ -86,7 +86,7 @@ public static void view(String[] message, TextChannel currentChannel, long ID, U
 	String book = message[1];
 	if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		if (prefs.get(author.getIdAsString() + book + " name", "no book").equalsIgnoreCase("no book"))
-			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set " + book + " <name of your book without these thingies at the end>\" to first set a book you dumb whore");}
+			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set " + book + " <name of your book without these thingies at the end>\" to first set a book
 		else
 			{currentChannel.sendMessage(prefs.get(author.getIdAsString() + book + " name", "no book"));}
 	}
@@ -98,18 +98,18 @@ public static void add(String[] message, TextChannel currentChannel, long ID, Us
 	boolean validEntry = true;
 	
 	if (prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
-	{currentChannel.sendMessage("You're on a break bitch ass bastard. Use wc.back to join the rat race");}
+	{currentChannel.sendMessage("You're on a break. Use wc.back to join the rat race");}
 	
 	else if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		if (prefs.get(author.getIdAsString() + book, "no book").equalsIgnoreCase("no book"))
-			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set book1 <name of your book without these thingies at the end>\" to first set a book you dumb whore");}
+			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set book1 <name of your book without these thingies at the end>\" to first set a book
 		else
 		{String wc = prefs.get(author.getIdAsString() + book + " wc", "");
 		try {
 			int words = Integer.parseInt(message[2]);
 		}
 		catch(NumberFormatException e) {
-			currentChannel.sendMessage("Please use a valid number and don't annoy me you cocksucker");
+			currentChannel.sendMessage("Please use a valid number");
 			validEntry = false;
 		}
 		
@@ -128,7 +128,7 @@ public static void undo(String[] message, TextChannel currentChannel, long ID, U
 	//wc.add book1 number or wc.add book2 number
 	String book = message[1];
 	if (prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
-	{currentChannel.sendMessage("You're on a break bitch ass bastard. Use wc.back to join the rat race");}
+	{currentChannel.sendMessage("You're on a break. Use wc.back to join the rat race");}
 	
 	else if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		String wc = prefs.get(author.getIdAsString() + book + " wc", "");
@@ -152,7 +152,7 @@ public static void check(String[] message, TextChannel currentChannel, long ID, 
 	//wc.check book1 month or wc.check book2 month
 	String book = message[1];
 	if (prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
-	{currentChannel.sendMessage("You're already on a break bitch ass bastard. Use wc.back to join the rat race");}
+	{currentChannel.sendMessage("You're already on a break. Use wc.back to join the rat race");}
 	
 	else if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		if (prefs.getBoolean(author.getIdAsString() + book, false)) {
@@ -235,7 +235,7 @@ public static void sum(String[] message, TextChannel currentChannel, long ID, Us
 	int sum = 0;
 	String book = message[1];
 	if (prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
-	{currentChannel.sendMessage("You're already on a break bitch ass bastard. Use wc.back to join the rat race");}
+	{currentChannel.sendMessage("You're already on a break. Use wc.back to join the rat race");}
 	
 	else if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		sum = total(message, currentChannel, ID, author, "total");
@@ -252,7 +252,7 @@ public static void reset(String[] message, TextChannel currentChannel, long ID, 
 	//wc.reset book1 month or wc.reset book2 month
 	String book = message[1];
 	if (prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
-	{currentChannel.sendMessage("You're already on a break bitch ass bastard. Use wc.back to join the rat race");}
+	{currentChannel.sendMessage("You're already on a break. Use wc.back to join the rat race");}
 	
 	else if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		if (prefs.getBoolean(author.getIdAsString() + book, false)) {
@@ -271,7 +271,7 @@ public static void reset(String[] message, TextChannel currentChannel, long ID, 
 public static void goOnBreak(String[] message, TextChannel currentChannel, long ID, User author) {
 	LocalDate breakStartsfrom = LocalDate.now();
 	if (prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
-		{currentChannel.sendMessage("You're already on a break bitch ass bastard. Use wc.back to join the rat race");}
+		{currentChannel.sendMessage("You're already on a break. Use wc.back to join the rat race");}
 	else
 		{prefs.putBoolean(author.getIdAsString() + "isOnBreak", true);
 		prefs.put(author.getIdAsString() + "break","From : " + LocalDate.now().toString());
@@ -280,7 +280,7 @@ public static void goOnBreak(String[] message, TextChannel currentChannel, long 
 
 public static void isBack(String[] message, TextChannel currentChannel, long ID, User author){
 	if (!prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
-		{currentChannel.sendMessage("You were never on a break bitch ass bastard. Use wc.break to quit on us like a damn pussy");}
+		{currentChannel.sendMessage("You were never on a break. Use wc.break to quit on us like a damn pussy");}
 	else
 		{prefs.putBoolean(author.getIdAsString() + "isOnBreak", false);
 		//prefs.put(author.getIdAsString() + "break", LocalDate.now().toString());
@@ -311,7 +311,7 @@ public static void checkStats(String[] message, TextChannel currentChannel, long
 					breakstats += System.lineSeparator();
 				}}
 			else
-			{breakstats = "No breaks taken, gg you hardworking whore";}
+			{breakstats = "No breaks taken gg";}
 
 			String bookname1 = prefs.get(subject.getIdAsString() + "book1 name", "No name set");
 			String bookname2 = prefs.get(subject.getIdAsString() + "book2 name", "No name set");
@@ -344,7 +344,7 @@ public static void checkStats(String[] message, TextChannel currentChannel, long
 				breakstats += System.lineSeparator();
 			}}
 		else
-		{breakstats = "No breaks taken, gg you hardworking whore";}
+		{breakstats = "No breaks taken gg";}
 
 		String bookname1 = prefs.get(author.getIdAsString() + "book1 name", "No name set");
 		String bookname2 = prefs.get(author.getIdAsString() + "book2 name", "No name set");
@@ -379,7 +379,7 @@ public static void checkMonthlyStats(String[] message, TextChannel currentChanne
 				breakstats += System.lineSeparator();
 			}}
 			else
-			{breakstats = "No breaks taken, gg you hardworking whore";}
+			{breakstats = "No breaks taken gg";}
 
 			String bookname1 = prefs.get(subject.getIdAsString() + "book1 name", "No name set");
 			String bookname2 = prefs.get(subject.getIdAsString() + "book2 name", "No name set");
@@ -416,7 +416,7 @@ public static void checkMonthlyStats(String[] message, TextChannel currentChanne
 			breakstats += System.lineSeparator();
 		}}
 		else
-		{breakstats = "No breaks taken, gg you hardworking whore";}
+		{breakstats = "No breaks taken gg";}
 
 		String bookname1 = prefs.get(author.getIdAsString() + "book1 name", "No name set");
 		String bookname2 = prefs.get(author.getIdAsString() + "book2 name", "No name set");
@@ -453,7 +453,7 @@ if (Organization.checkPerms(author))
 		}});
 	}
 else
-	{author.sendMessage("Only Mods can use this method, weakass");}
+	{author.sendMessage("Only Mods can use this method");}
 	}
 
 public static void memberList(String[] message, TextChannel currentChannel, long ID, User author) throws ExecutionException, InterruptedException {
