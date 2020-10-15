@@ -102,7 +102,7 @@ public static void add(String[] message, TextChannel currentChannel, long ID, Us
 	
 	else if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		if (prefs.get(author.getIdAsString() + book, "no book").equalsIgnoreCase("no book"))
-			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set book1 <name of your book without these thingies at the end>\" to first set a book");
+			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set book1 <name of your book without these thingies at the end>\" to first set a book");}
 		else
 		{String wc = prefs.get(author.getIdAsString() + book + " wc", "");
 		try {
