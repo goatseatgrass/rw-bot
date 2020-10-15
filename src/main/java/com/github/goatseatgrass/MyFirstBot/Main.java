@@ -14,14 +14,13 @@ import java.util.concurrent.ExecutionException;
 public class Main {
 	public static DiscordApi api;
 	public static Server RabidWriters;
-	public static Server MyServer;
-
+	public static Server MyS
 
 	public static void main(String[] args) throws IOException {
-		api = new DiscordApiBuilder().setToken("NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.iiw6wc5gfFSUfqYdEZUCz2GyjvA").login().join();
+		api = new DiscordApiBuilder().setToken("NzIyNDQ2MTY2NNjE4.XujMbA").login().join();
 		System.out.println("Logged in!");
-		String token = "NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.iiw6wc5gfFSUfqYdEZUCz2GyjvA";
-		RabidWriters = api.getServerById("695616904206876774").get();
+		String token = "NzIyNDQ2MTY2NNjE4.XujMbA";
+		RabidWriters = api.getServerById("6956169042068767").get();
 		//MyServer = api.getServerById("722438697785622629").get();
 
 		api.addMessageCreateListener(event -> {
@@ -40,13 +39,6 @@ public class Main {
 		embed.setTimestampToNow();
 		embed.setTitle("Title");
 
-		api.addPrivateChannelCreateListener(i -> {
-			i.getChannel().addMessageCreateListener(j -> {
-				if (j.getMessageContent().equalsIgnoreCase("ping")) {
-					j.getChannel().sendMessage("It somehow worked you bastard");
-				}
-			});
-		});
 		//api.addServerMemberJoinListener(i -> {Organization.autoNick(i.getUser());});
 
 		// Add a listener which answers with Discord name if someone writes "!ping"
@@ -73,15 +65,7 @@ public class Main {
 		});
 
 	}
-
-	public static String getMessagefromArray(String[] array, int startingPoint) {
-		String message = "";
-		for (int i = startingPoint; i < array.length; i++) {
-			message += array[i] + " ";
-		}
-		return message.trim();
-	}
-
+	
 	public static void assign(String message, TextChannel channel, long ID, User author) throws InterruptedException, ExecutionException, IOException {
 		String[] breakdown = message.split(" ");
 		if (author.isBot()) {
@@ -154,6 +138,14 @@ public class Main {
 			}
 			}
 		}
+	}
+
+	public static String getMessagefromArray(String[] array, int startingPoint) {
+		String message = "";
+		for (int i = startingPoint; i < array.length; i++) {
+			message += array[i] + " ";
+		}
+		return message.trim();
 	}
 
 
