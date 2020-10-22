@@ -16,6 +16,7 @@ public class Main {
 	public static Server RabidWriters;
 	
 	public static void main(String[] args) throws IOException {
+		System.out.println("Logging in!");
 		api = new DiscordApiBuilder().setToken("NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.074tYdlXM9hv37ERMnVOF-FWWAw").login().join();
 		System.out.println("Logged in!");
 		String token = "NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.074tYdlXM9hv37ERMnVOF-FWWAw";
