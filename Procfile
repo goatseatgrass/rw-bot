@@ -1,1 +1,1 @@
-worker: java -java src\main\java\com\github\goatseatgrass\MyFirstBot\Main
+worker: java -java src/main/java/com/github/goatseatgrass/MyFirstBot/Main.java
