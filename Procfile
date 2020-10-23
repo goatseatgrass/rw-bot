@@ -1,1 +1,1 @@
-worker: java -java src/main/java/com/github/goatseatgrass/MyFirstBot/Main.java
+web: java -Dserver.port=$PORT -jar target/spring-0.0.1-SNAPSHOT.jar
