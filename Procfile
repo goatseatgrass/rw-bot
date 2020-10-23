@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/spring-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar out/artifacts/MyFirstBot_jar/MyFirstBot.jar
