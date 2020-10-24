@@ -230,7 +230,7 @@ public static void sum(String[] message, TextChannel currentChannel, long ID, Us
 	
 	else if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		sum = total(message, currentChannel, ID, author, "total");
-		currentChannel.sendMessage("sum - " + sum + " words");
+		currentChannel.sendMessage("Total words written - " + sum + " words");
 	}
 	
 	else {
