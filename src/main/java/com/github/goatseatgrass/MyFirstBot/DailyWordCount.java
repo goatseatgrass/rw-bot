@@ -63,22 +63,9 @@ public static void set(String[] message, TextChannel currentChannel, long ID, Us
 		currentChannel.getMessageById(ID).get().addReaction(EmojiParser.parseToUnicode(":white_check_mark:"));
 		Organization.deleteInTime(currentChannel, ID, 1);
 	}
-}
 
-public static void memberAdd(String[] message, TextChannel currentChannel, long ID, User author){
-	boolean exists = false;
-	if (!prefs.get("members", "").equalsIgnoreCase(""))
-	{String[] members = prefs.get("members", "").split(" ");
-	for (int i=0; i< members.length; i++){
-		if (Long.parseLong(members[i])== author.getId()){
-			exists = true;
-		}
-	}}
-
-	if (!exists) {
-		String temp = prefs.get("members", "") + " " + author.getIdAsString();
-		prefs.put("members", temp);
-	}
+	else
+	{currentChannel.sendMessage("Use wc.set book1/book2 followed by the name of the book to set it.");}
 }
 
 public static void view(String[] message, TextChannel currentChannel, long ID, User author) throws InterruptedException, ExecutionException {
@@ -88,7 +75,9 @@ public static void view(String[] message, TextChannel currentChannel, long ID, U
 		if (prefs.get(author.getIdAsString() + book + " name", "no book").equalsIgnoreCase("no book"))
 			{currentChannel.sendMessage("You do not have a book atm. Use \"wc.set " + book + " <name of your book without these thingies at the end>\" to first set a book");}
 		else
-			{currentChannel.sendMessage(prefs.get(author.getIdAsString() + book + " name", "no book"));}
+			{	currentChannel.getMessageById(ID).get().addReaction(EmojiParser.parseToUnicode(":white_check_mark:"));
+				Organization.deleteInTime(currentChannel, ID, 1);
+				currentChannel.sendMessage(prefs.get(author.getIdAsString() + book + " name", "no book"));}
 	}
 }
 
@@ -270,17 +259,19 @@ public static void reset(String[] message, TextChannel currentChannel, long ID, 
 	}
 }
 
-public static void goOnBreak(String[] message, TextChannel currentChannel, long ID, User author) {
+public static void goOnBreak(String[] message, TextChannel currentChannel, long ID, User author) throws ExecutionException, InterruptedException {
 	LocalDate breakStartsfrom = LocalDate.now();
 	if (prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
 		{currentChannel.sendMessage("You're already on a break. Use wc.back to join the rat race");}
 	else
 		{prefs.putBoolean(author.getIdAsString() + "isOnBreak", true);
 		prefs.put(author.getIdAsString() + "break","From : " + LocalDate.now().toString());
+		currentChannel.getMessageById(ID).get().addReaction(EmojiParser.parseToUnicode(":white_check_mark:"));
+		Organization.deleteInTime(currentChannel, ID, 1);
 		}
 	}
 
-public static void isBack(String[] message, TextChannel currentChannel, long ID, User author){
+public static void isBack(String[] message, TextChannel currentChannel, long ID, User author) throws ExecutionException, InterruptedException {
 	if (!prefs.getBoolean(author.getIdAsString() + "isOnBreak", false)) 
 		{currentChannel.sendMessage("You were never on a break. Use wc.break to quit on us like a damn pussy");}
 	else
@@ -292,6 +283,8 @@ public static void isBack(String[] message, TextChannel currentChannel, long ID,
 		breakstats+=LocalDate.now();
 		breakstats+=",";
 		prefs.put(author.getIdAsString() + "breakstats", breakstats);
+		currentChannel.getMessageById(ID).get().addReaction(EmojiParser.parseToUnicode(":white_check_mark:"));
+		Organization.deleteInTime(currentChannel, ID, 1);
 		}
 }
 
@@ -513,6 +506,25 @@ public static String getMonth(int n) {
 	}
 	return month;
 }
+
+	//method for member list
+	public static void memberAdd(String[] message, TextChannel currentChannel, long ID, User author){
+		boolean exists = false;
+		System.out.print(prefs.get("members", ""));
+		if (!prefs.get("members", "").equalsIgnoreCase(""))
+		{String[] members = prefs.get("members", "").split(" ");
+			for (int i=1; i< members.length; i++){
+				if (Long.parseLong(members[i])== author.getId()){
+					exists = true;
+				}
+			}}
+
+		if (!exists) {
+			String temp = prefs.get("members", "") + " " + author.getIdAsString();
+			prefs.put("members", temp);
+		}
+	}
+
 
 }
 

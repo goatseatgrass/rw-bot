@@ -29,15 +29,6 @@ public class Main {
 			} catch (InterruptedException | ExecutionException | IOException e) {
 			}
 		});
-		
-		EmbedBuilder embed = new EmbedBuilder();
-		embed.addField("name", "value");
-		embed.setAuthor("Author");
-		embed.setDescription("Description");
-		embed.setColor(Color.WHITE);
-		embed.setFooter("Footer");
-		embed.setTimestampToNow();
-		embed.setTitle("Title");
 
 		//api.addServerMemberJoinListener(i -> {Organization.autoNick(i.getUser());});
 
