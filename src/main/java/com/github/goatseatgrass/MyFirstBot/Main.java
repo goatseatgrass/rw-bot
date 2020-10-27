@@ -125,6 +125,15 @@ public class Main {
 			if (breakdown[0].equalsIgnoreCase("wc.checkmembers")) {
 				DailyWordCount.memberList(breakdown, channel, ID, author);
 			}
+			if (breakdown[0].equalsIgnoreCase("wc.scanall")) {
+				DailyWordCount.letsGetThatBread(breakdown, channel, ID, author);
+			}
+			if (breakdown[0].equalsIgnoreCase("wc.showmap")) {
+				DailyWordCount.showmap(breakdown, channel, ID, author);
+			}
+			if (breakdown[0].equalsIgnoreCase("wc.updatemap")) {
+				DailyWordCount.updateMap(message, channel, ID, author);
+			}
 			
 		}
 	}

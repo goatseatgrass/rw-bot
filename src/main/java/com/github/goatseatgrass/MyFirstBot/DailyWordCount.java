@@ -2,19 +2,27 @@ package com.github.goatseatgrass.MyFirstBot;
 
 import com.vdurmont.emoji.EmojiParser;
 import org.javacord.api.entity.channel.TextChannel;
+import org.javacord.api.entity.message.Message;
+import org.javacord.api.entity.message.MessageAuthor;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.MessageSet;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.prefs.Preferences;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DailyWordCount {
 	
@@ -28,6 +36,7 @@ private static final Preferences prefs = Preferences.userNodeForPackage(DailyWor
  * 6. author.getIdAsString() stats break - from to
  * 7. author.getIdAsString() stats break - from to
  */
+static Map<MessageAuthor, List<Message>> map;
 
 public static void help(String[] message, TextChannel currentChannel, long ID, User author) throws ExecutionException {
 	//wc.set book1 name or wc.set book2 name
@@ -159,7 +168,7 @@ public static void check(String[] message, TextChannel currentChannel, long ID, 
 }
 
 public static int total(String[] message, TextChannel currentChannel, long ID, User author, String month) {
-	int sum = 0;
+	int sum = prefs.getInt(author.getIdAsString() + " sum", 0);
 	String book = message[1];
 	if (month.equalsIgnoreCase("total")) {
 		if (prefs.getBoolean(author.getIdAsString() + book, false)) {
@@ -525,6 +534,52 @@ public static String getMonth(int n) {
 		}
 	}
 
+	public static void letsGetThatBread(String[] message, TextChannel currentChannel, long ID, User author) throws ExecutionException, InterruptedException {
+        try (Stream<Message> messageStream = currentChannel.getMessagesBeforeAsStream(ID)) {
+        map = messageStream.collect(Collectors.groupingBy(Message::getAuthor));
+        System.out.println("I'm done searching");
+        }
+    }
+
+    public static void showmap(String[] message, TextChannel currentChannel, long ID, User author){
+    int number = Integer.parseInt(message[1]);
+    Object key = map.keySet().toArray()[number];
+    List<Message> allMessages = map.get(key);
+    final String[] messages = {""};
+    allMessages.forEach(i -> {String[]content = i.getContent().split("content:");
+    							messages[0] += content[0];
+								messages[0] += ", ";});
+    System.out.println(key);
+    System.out.println(messages[0]);
+    currentChannel.sendMessage(key.toString());
+
+    if (messages[0].length()>2000){
+    for (int i=0; i<(messages[0].length()/2000 + 1); i++){
+        currentChannel.sendMessage(messages[0].substring(2000*i, 2000*(i+1)));
+    }
+    }
+    else
+    {currentChannel.sendMessage(messages[0]);}
+    }
+
+    public static void updateMap(String message, TextChannel currentChannel, long ID, User author){
+        //wc.update ID - Text
+        long mID = 0;
+		if (!message.split(" ")[1].chars().allMatch(Character::isWhitespace)) {
+			String temp = message.split(" ")[1].replace(" ", "");
+			mID = Long.parseLong(temp);
+		}
+
+		int sum = 0;
+		String[]words = message.split("-")[1].split(",");
+		for (int i=0; i<words.length; i++){
+			if (!words[i].chars().allMatch(Character::isWhitespace)) {
+				String temp = words[i].replace(" ", "");
+				sum += Long.parseLong(temp);
+			}
+		}
+		currentChannel.sendMessage("sum - " + sum);
+    }
 
 }
 
