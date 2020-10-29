@@ -168,9 +168,9 @@ public static void check(String[] message, TextChannel currentChannel, long ID, 
 }
 
 public static int total(String[] message, TextChannel currentChannel, long ID, User author, String month) {
-	int sum = prefs.getInt(author.getIdAsString() + " sum", 0);
 	String book = message[1];
-	if (month.equalsIgnoreCase("total")) {
+    int sum = prefs.getInt(author.getIdAsString() + " sum " + book, 0);
+    if (month.equalsIgnoreCase("total")) {
 		if (prefs.getBoolean(author.getIdAsString() + book, false)) {
 			String allWords = prefs.get(author.getIdAsString() + book + " wc", "0");
 			String[] words = allWords.split(" ");
@@ -239,7 +239,7 @@ public static void sum(String[] message, TextChannel currentChannel, long ID, Us
 	
 	else if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		sum = total(message, currentChannel, ID, author, "total");
-		currentChannel.sendMessage("Total words written - " + sum + " words");
+		currentChannel.sendMessage("Total words written - " + sum);
 	}
 	
 	else {
@@ -563,22 +563,29 @@ public static String getMonth(int n) {
     }
 
     public static void updateMap(String message, TextChannel currentChannel, long ID, User author){
-        //wc.update ID - Text
+        //wc.update ID book - Text
         long mID = 0;
 		if (!message.split(" ")[1].chars().allMatch(Character::isWhitespace)) {
 			String temp = message.split(" ")[1].replace(" ", "");
 			mID = Long.parseLong(temp);
 		}
+        String book = message.split(" ")[2];
+        if (!book.chars().allMatch(Character::isWhitespace)) {
+            String temp = book.replace(" ", "");
+            book = temp;
+        }
 
-		int sum = 0;
-		String[]words = message.split("-")[1].split(",");
-		for (int i=0; i<words.length; i++){
-			if (!words[i].chars().allMatch(Character::isWhitespace)) {
-				String temp = words[i].replace(" ", "");
-				sum += Long.parseLong(temp);
-			}
-		}
-		currentChannel.sendMessage("sum - " + sum);
+		int sum = prefs.getInt(mID + " sum " + book, 0);
+
+        String[]words = message.split("-")[1].split(",");
+        for (int i=0; i<words.length; i++){
+            if (!words[i].chars().allMatch(Character::isWhitespace)) {
+                String temp = words[i].replace(" ", "");
+                sum += Long.parseLong(temp);
+            }
+        }
+        currentChannel.sendMessage("sum - " + sum);
+        prefs.putInt(mID + " sum " + book, sum);
     }
 
 }
