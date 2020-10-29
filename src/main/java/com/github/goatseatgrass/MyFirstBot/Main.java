@@ -132,6 +132,9 @@ public class Main {
 			if (breakdown[0].equalsIgnoreCase("wc.showmap")) {
 				DailyWordCount.showmap(breakdown, channel, ID, author);
 			}
+			if (breakdown[0].equalsIgnoreCase("wc.checkstatus")) {
+				DailyWordCount.status(breakdown, channel, ID, author);
+			}
 			if (breakdown[0].equalsIgnoreCase("wc.updatemap")) {
 				DailyWordCount.updateMap(message, channel, ID, author);
 			}

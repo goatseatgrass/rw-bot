@@ -15,10 +15,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
@@ -54,7 +52,7 @@ eb.addField("7. wc.view book1/book2", "Shows the name of your first/second book.
 eb.addField("8. wc.break", "Puts you on break effective immediately.");
 eb.addField("9. wc.back", "Ends your break");
 eb.addField("10. wc.checkstats", "Shows you dem statistics");
-eb.addField("11. wc.checkmonthlystats <Month>", "Shows you dem monthly statistics");
+//eb.addField("11. wc.checkmonthlystats <Month>", "Shows you dem monthly statistics");
 currentChannel.sendMessage(eb);
 
 }
@@ -86,7 +84,7 @@ public static void view(String[] message, TextChannel currentChannel, long ID, U
 		else
 			{	currentChannel.getMessageById(ID).get().addReaction(EmojiParser.parseToUnicode(":white_check_mark:"));
 				Organization.deleteInTime(currentChannel, ID, 1);
-				currentChannel.sendMessage(prefs.get(author.getIdAsString() + book + " name", "no book"));}
+				currentChannel.sendMessage("You currently have \"" + prefs.get(author.getIdAsString() + book + " name", "no book") + "\" set at your first book");}
 	}
 }
 
@@ -277,6 +275,7 @@ public static void goOnBreak(String[] message, TextChannel currentChannel, long 
 		prefs.put(author.getIdAsString() + "break","From : " + LocalDate.now().toString());
 		currentChannel.getMessageById(ID).get().addReaction(EmojiParser.parseToUnicode(":white_check_mark:"));
 		Organization.deleteInTime(currentChannel, ID, 1);
+		Main.RabidWriters.getChannelById("704993381641748542").get().asTextChannel().get().sendMessage(author.getDiscriminatedName() + " (ID - " + author.getIdAsString() + ") is now on a break");
 		}
 	}
 
@@ -485,37 +484,6 @@ public static void memberList(String[] message, TextChannel currentChannel, long
 	mb.send(currentChannel);
 }
 
-public static String getMonth(int n) {
-	String month = "";
-	switch(n) {
-	case 1:
-		month.concat("January");
-	case 2:
-		month.concat("February");
-	case 3:
-		month.concat("March");
-	case 4:
-		month.concat("April");
-	case 5:
-		month.concat("May");
-	case 6:
-		month.concat("June");
-	case 7:
-		month.concat("July");
-	case 8:
-		month.concat("August");
-	case 9:
-		month.concat("September");
-	case 10:
-		month.concat("October");
-	case 11:
-		month.concat("November");
-	case 12:
-		month.concat("December");
-	}
-	return month;
-}
-
 	//method for member list
 	public static void memberAdd(String[] message, TextChannel currentChannel, long ID, User author){
 		boolean exists = false;
@@ -549,7 +517,7 @@ public static String getMonth(int n) {
     allMessages.forEach(i -> {String[]content = i.getContent().split("content:");
     							messages[0] += content[0];
 								messages[0] += ", ";});
-    System.out.println(key);
+    System.out.println(number + " " + key);
     System.out.println(messages[0]);
     currentChannel.sendMessage(key.toString());
 
@@ -562,6 +530,15 @@ public static String getMonth(int n) {
     {currentChannel.sendMessage(messages[0]);}
     }
 
+    public static void status(String[] message, TextChannel currentChannel, long ID, User author){
+		String mID = message[1];
+		try{
+		Main.RabidWriters.getMemberById(mID).get();
+		}
+		catch (NoSuchElementException e){
+			currentChannel.sendMessage("This member isn't in the Server anymore.");
+		}
+	}
     public static void updateMap(String message, TextChannel currentChannel, long ID, User author){
         //wc.update ID book - Text
         long mID = 0;
