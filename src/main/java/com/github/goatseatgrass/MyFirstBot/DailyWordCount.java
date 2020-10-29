@@ -574,7 +574,9 @@ public static String getMonth(int n) {
             String temp = book.replace(" ", "");
             book = temp;
         }
-
+        if (book!="book1"||book!="book2"){
+            currentChannel.sendMessage("Specify a book");
+        }
 		int sum = prefs.getInt(mID + " sum " + book, 0);
 
         String[]words = message.split("-")[1].split(",");
