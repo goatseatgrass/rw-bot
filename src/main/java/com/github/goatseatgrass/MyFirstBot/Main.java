@@ -13,6 +13,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.NoSuchElementException;
 import java.util.concurrent.ExecutionException;
 
 public class Main {
@@ -24,8 +25,11 @@ public class Main {
 		String token = "NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.8WxhPPW0xPgDTD1Xi2m1Xbxgf94";
 		api = new DiscordApiBuilder().setToken(token).login().join();
 		System.out.println("Logged in!");
-		RabidWriters = api.getServerById("695616904206876774").get();
-		Me = RabidWriters.getMemberById("349600729922797568").get();
+		try {RabidWriters = api.getServerById("695616904206876774").get();
+			Me = RabidWriters.getMemberById("349600729922797568").get();}
+		catch(NoSuchElementException e){
+			System.out.println("Can't seem to find the server");
+		}
 		//MyServer = api.getServerById("722438697785622629").get();
 
 		api.addMessageCreateListener(event -> {
