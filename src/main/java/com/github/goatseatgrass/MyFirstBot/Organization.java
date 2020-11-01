@@ -162,6 +162,12 @@ public class Organization{
 		return hasModPerms;
 	}
 
+	public static void PMassign(String message, TextChannel currentChannel, long ID, User author){
+
+	}
+	public static void complain(String[] message, TextChannel currentChannel, long ID, User author){
+
+	}
 	public static void autoNick(User user) {
 		user.updateNickname(Main.RabidWriters, "Stray Dog");
 	}

@@ -43,15 +43,15 @@ EmbedBuilder eb = new EmbedBuilder();
 eb.setColor(Color.WHITE);
 eb.setAuthor("List of Commands");
 eb.addField("1. wc.set book1/book2 <Name of the book>", "Adds the specified book as your first/second book. You can also use this command to rename your book");
-eb.addField("2. wc.add book1/book2 <Number of words>", "Adds the amount of words to your first/second book.");
-eb.addField("3. wc.undo book1/book2", "Removed the last added amount of words from your first/second book.");
-eb.addField("4. wc.check book1/book2 <Number> ", "Shows the specified number of word count entries of your first/second book. If no number is specified, it shows the last 10 entries");
-eb.addField("5. wc.total book1/book2", "Shows the total amount of words written for your first/second book.");
-eb.addField("6. wc.reset book1/book2", "Resets all progress of your first/second book.");
-eb.addField("7. wc.view book1/book2", "Shows the name of your first/second book.");
-eb.addField("8. wc.break", "Puts you on break effective immediately.");
-eb.addField("9. wc.back", "Ends your break");
-eb.addField("10. wc.checkstats", "Shows you dem statistics");
+eb.addField("2. wc.add book1/book2 <Number of words>", "Adds the amount of words to your first/second book. To remove words from your book, use negative numbers.");
+//eb.addField("3. wc.remove book1/book2", "Removes the amount of words from your first/second book.");
+eb.addField("3. wc.check book1/book2 <Number> ", "Shows the specified number of word count entries of your first/second book. If no number is specified, it shows the last 10 entries");
+eb.addField("4. wc.total book1/book2", "Shows the total amount of words written for your first/second book.");
+eb.addField("5. wc.reset book1/book2", "Resets all progress of your first/second book.");
+eb.addField("6. wc.view book1/book2", "Shows the name of your first/second book.");
+//eb.addField("7. wc.break", "Puts you on break effective immediately.");
+//eb.addField("8. wc.back", "Ends your break");
+//eb.addField("9. wc.checkstats", "Shows you dem statistics");
 //eb.addField("11. wc.checkmonthlystats <Month>", "Shows you dem monthly statistics");
 currentChannel.sendMessage(eb);
 
@@ -84,7 +84,7 @@ public static void view(String[] message, TextChannel currentChannel, long ID, U
 		else
 			{	currentChannel.getMessageById(ID).get().addReaction(EmojiParser.parseToUnicode(":white_check_mark:"));
 				Organization.deleteInTime(currentChannel, ID, 1);
-				currentChannel.sendMessage("You currently have \"" + prefs.get(author.getIdAsString() + book + " name", "no book") + "\" set at your first book");}
+				currentChannel.sendMessage("You currently have \"" + prefs.get(author.getIdAsString() + book + " name", "no book") + "\" set as your first book");}
 	}
 }
 
