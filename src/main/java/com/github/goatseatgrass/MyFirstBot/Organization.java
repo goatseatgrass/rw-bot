@@ -1,36 +1,17 @@
 package com.github.goatseatgrass.MyFirstBot;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.io.Serializable;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
-import java.util.prefs.Preferences;
+import com.vdurmont.emoji.EmojiManager;
+import com.vdurmont.emoji.EmojiParser;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.channel.TextChannel;
-import org.javacord.api.entity.emoji.Emoji;
-import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.message.MessageSet;
-import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.entity.user.UserStatus;
-
-import com.vdurmont.emoji.EmojiManager;
-import com.vdurmont.emoji.EmojiParser;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.prefs.Preferences;
 
 public class Organization{
 	/*
@@ -151,7 +132,7 @@ public class Organization{
 	
 	public static boolean checkPerms(User author) {
 		boolean hasModPerms = false;
-		List<Role> roles = author.getRoles(Main.RabidWriters);
+		List<Role> roles = author.getRoles(Main.api.getServerById("695616904206876774").get());
 		for (int i=0; i<roles.size(); i++) {
 			//System.out.println(roles.get(i).getName());
 			if (roles.get(i).getName().equalsIgnoreCase("Guardian")||roles.get(i).getName().equalsIgnoreCase("Modhound")) {
@@ -168,9 +149,9 @@ public class Organization{
 	public static void complain(String[] message, TextChannel currentChannel, long ID, User author){
 
 	}
-	public static void autoNick(User user) {
-		user.updateNickname(Main.RabidWriters, "Stray Dog");
-	}
+	//public static void autoNick(User user) {
+	//	user.updateNickname(Main.RabidWriters, "Stray Dog");
+	//}
 	
 	public static void disable(String method) {
 		

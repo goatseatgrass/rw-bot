@@ -18,18 +18,13 @@ import java.util.concurrent.ExecutionException;
 
 public class Main {
 	public static DiscordApi api;
-	public static Server RabidWriters;
-	public static User Me;
+	//public static Server RabidWriters;
+	//public static User Me;
 	
 	public static void main(String[] args) throws IOException {
 		String token = "NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.8WxhPPW0xPgDTD1Xi2m1Xbxgf94";
 		api = new DiscordApiBuilder().setToken(token).login().join();
 		System.out.println("Logged in!");
-		try {RabidWriters = api.getServerById("695616904206876774").get();
-			Me = RabidWriters.getMemberById("349600729922797568").get();}
-		catch(NoSuchElementException e){
-			System.out.println("Can't seem to find the server");
-		}
 		//MyServer = api.getServerById("722438697785622629").get();
 
 		api.addMessageCreateListener(event -> {
@@ -129,19 +124,19 @@ public class Main {
 	}
 
 	public static void PMAssign(String message, TextChannel channel, long ID, User author) throws ExecutionException, InterruptedException {
-	TextChannel logroom = RabidWriters.getChannelById("704993381641748542").get().asTextChannel().get();
+	TextChannel logroom = api.getTextChannelById("704993381641748542").get();
 	if (author.isBot()) {
 		}
 	else if (message.contains("#C")){
 		logroom.sendMessage("We have a new complaint" + System.lineSeparator() + "C#" + channel.getId() + " - " + message.split("-")[1]);
 		channel.getMessageById(ID).get().addReaction(EmojiParser.parseToUnicode(":white_check_mark:"));
-		Me.sendMessage(author.getDiscriminatedName() + " " + message + System.lineSeparator() + LocalDateTime.now().toString());
+		api.getYourself().sendMessage(author.getDiscriminatedName() + " " + message + System.lineSeparator() + LocalDateTime.now().toString());
 		channel.sendMessage("If your message has been reacted to, that means that your message has been sent to the staff anonymously, and they will get back to you using the bot. If not, wait for some time and try again");
 	}
 	else if (message.contains("#S")){
 		logroom.sendMessage("We have a new suggestion" + System.lineSeparator() + "S#" + channel.getId() + " - " + message.split("-")[1]);
 		channel.getMessageById(ID).get().addReaction(EmojiParser.parseToUnicode(":white_check_mark:"));
-		Me.sendMessage(author.getDiscriminatedName() + " " + message + System.lineSeparator() + LocalDateTime.now().toString());
+		api.getYourself().sendMessage(author.getDiscriminatedName() + " " + message + System.lineSeparator() + LocalDateTime.now().toString());
 		channel.sendMessage("If your message has been reacted to, that means that your message has been sent to the staff anonymously, and they will get back to you using the bot. If not, wait for some time and try again");
 	}
 

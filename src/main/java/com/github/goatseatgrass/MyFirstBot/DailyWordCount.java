@@ -275,7 +275,7 @@ public static void goOnBreak(String[] message, TextChannel currentChannel, long 
 		prefs.put(author.getIdAsString() + "break","From : " + LocalDate.now().toString());
 		currentChannel.getMessageById(ID).get().addReaction(EmojiParser.parseToUnicode(":white_check_mark:"));
 		Organization.deleteInTime(currentChannel, ID, 1);
-		Main.RabidWriters.getChannelById("704993381641748542").get().asTextChannel().get().sendMessage(author.getDiscriminatedName() + " (ID - " + author.getIdAsString() + ") is now on a break");
+		Main.api.getTextChannelById("704993381641748542").get().sendMessage(author.getDiscriminatedName() + " (ID - " + author.getIdAsString() + ") is now on a break");
 		}
 	}
 
@@ -533,9 +533,9 @@ public static void memberList(String[] message, TextChannel currentChannel, long
     public static void status(String[] message, TextChannel currentChannel, long ID, User author){
 		String mID = message[1];
 		try{
-		Main.RabidWriters.getMemberById(mID).get();
+		Main.api.getUserById(mID).get();
 		}
-		catch (NoSuchElementException e){
+		catch (NoSuchElementException | InterruptedException | ExecutionException e){
 			currentChannel.sendMessage("This member isn't in the Server anymore.");
 		}
 	}
