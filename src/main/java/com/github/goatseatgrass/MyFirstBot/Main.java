@@ -28,7 +28,7 @@ public class Main {
 		//MyServer = api.getServerById("722438697785622629").get();
 
 		api.addMessageCreateListener(event -> {
-			try {
+			try {System.out.println("In try block");
 			if (event.isPrivateMessage())
 				{PMAssign(event.getMessageContent(), event.getChannel(), event.getMessageId(), event.getMessageAuthor().asUser().get());}
 			else
@@ -42,6 +42,7 @@ public class Main {
 	
 	public static void assign(String message, TextChannel channel, long ID, User author) throws InterruptedException, ExecutionException, IOException {
 		String[] breakdown = message.split(" ");
+        System.out.println("In assign");
 		if (author.isBot()) {
 		} else {
 			if (breakdown[0].equalsIgnoreCase("wolf.status")) {
@@ -81,7 +82,8 @@ public class Main {
 				DailyWordCount.add(breakdown, channel, ID, author);
 			}
 			if (breakdown[0].equalsIgnoreCase("wc.view")) {
-				DailyWordCount.view(breakdown, channel, ID, author);
+                System.out.println("In view");
+			    DailyWordCount.view(breakdown, channel, ID, author);
 			}
 			if (breakdown[0].equalsIgnoreCase("wc.help")) {
 				DailyWordCount.help(breakdown, channel, ID, author);

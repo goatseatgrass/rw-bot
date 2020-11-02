@@ -76,7 +76,8 @@ public static void set(String[] message, TextChannel currentChannel, long ID, Us
 }
 
 public static void view(String[] message, TextChannel currentChannel, long ID, User author) throws InterruptedException, ExecutionException {
-	//wc.view book1 or wc.view book2 
+	//wc.view book1 or wc.view book2
+	System.out.println("In view method");
 	String book = message[1];
 	if (book.equalsIgnoreCase("book1")||book.equalsIgnoreCase("book2")) {
 		if (prefs.get(author.getIdAsString() + book + " name", "no book").equalsIgnoreCase("no book"))
