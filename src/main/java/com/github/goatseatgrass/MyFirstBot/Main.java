@@ -27,6 +27,7 @@ public class Main {
 		System.out.println("Logged in!");
 		//MyServer = api.getServerById("722438697785622629").get();
 
+
 		api.addMessageCreateListener(event -> {
 			try {System.out.println("In try block");
 			if (event.isPrivateMessage())
