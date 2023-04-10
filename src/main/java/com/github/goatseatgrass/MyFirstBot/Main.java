@@ -22,7 +22,7 @@ public class Main {
 	//public static User Me;
 	
 	public static void main(String[] args) throws IOException {
-		String token = "NzIyNDQ2MTY2Njk2MTMyNjE4.XujMbA.8WxhPPW0xPgDTD1Xi2m1Xbxgf94";
+		String token = "Insert token here";
 		api = new DiscordApiBuilder().setToken(token).login().join();
 		System.out.println("Logged in!");
 		//MyServer = api.getServerById("722438697785622629").get();
